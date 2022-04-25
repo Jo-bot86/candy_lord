@@ -7,45 +7,44 @@ import de.candylord.location.Location;
 import java.awt.*;
 import java.util.List;
 
-public class NewYork extends Location {
+public class LosAngeles extends Location {
+    public static final int MIN_PRICE_CHEW_GUM = 6;
 
-    public static final int MIN_PRICE_CHEW_GUM = 4;
+    public static final int MAX_PRICE_CHEW_GUM = 15;
 
-    public static final int MAX_PRICE_CHEW_GUM = 12;
+    public static final int MIN_PRICE_LOLLIPOP = 19;
 
-    public static final int MIN_PRICE_LOLLIPOP = 16;
+    public static final int MAX_PRICE_LOLLIPOP = 30;
 
-    public static final int MAX_PRICE_LOLLIPOP = 24;
+    public static final int MIN_PRICE_COOKIE = 35;
 
-    public static final int MIN_PRICE_COOKIE = 31;
+    public static final int MAX_PRICE_COOKIE = 50;
 
-    public static final int MAX_PRICE_COOKIE = 47;
+    public static final int MIN_PRICE_CHOCOLATE_BAR = 52;
 
-    public static final int MIN_PRICE_CHOCOLATE_BAR = 58;
+    public static final int MAX_PRICE_CHOCOLATE_BAR = 150;
 
-    public static final int MAX_PRICE_CHOCOLATE_BAR = 128;
+    public static final int MIN_PRICE_MARSHMALLOW = 250;
 
-    public static final int MIN_PRICE_MARSHMALLOW = 233;
+    public static final int MAX_PRICE_MARSHMALLOW = 360;
 
-    public static final int MAX_PRICE_MARSHMALLOW = 356;
+    public static final int MIN_PRICE_BROWNIE = 420;
 
-    public static final int MIN_PRICE_BROWNIE = 453;
+    public static final int MAX_PRICE_BROWNIE = 630;
 
-    public static final int MAX_PRICE_BROWNIE = 689;
+    public static final int MIN_PRICE_GINGER_BREAD = 900;
 
-    public static final int MIN_PRICE_GINGER_BREAD = 899;
-
-    public static final int MAX_PRICE_GINGER_BREAD = 1078;
+    public static final int MAX_PRICE_GINGER_BREAD = 1020;
 
 
-    public NewYork() {
-        super("New York");
+    public LosAngeles() {
+        super("L.A.");
         super.setCandies(createCandies());
-        super.coordinates = new Point(0,0);
+        super.coordinates = new Point(-20,2);
     }
 
     @Override
-    protected List<Candy> createCandies() {
+    protected java.util.List<Candy> createCandies() {
         return List.of(
                 new Candy(CandyName.CHEW_GUM, rand.nextInt(MIN_PRICE_CHEW_GUM, MAX_PRICE_CHEW_GUM)),
                 new Candy(CandyName.LOLLIPOP, rand.nextInt(MIN_PRICE_LOLLIPOP, MAX_PRICE_LOLLIPOP)),

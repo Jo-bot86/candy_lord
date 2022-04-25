@@ -6,6 +6,7 @@ import de.candylord.controller.Controller;
 import de.candylord.location.Location;
 import de.candylord.location.city.Chicago;
 import de.candylord.location.city.Detroit;
+import de.candylord.location.city.LosAngeles;
 import de.candylord.location.city.NewYork;
 import de.candylord.player.Player;
 import de.candylord.shell.Shell;
@@ -16,7 +17,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        List<Location> cities = List.of(new Detroit(), new Chicago(), new NewYork());
+        List<Location> cities = List.of(new Detroit(), new Chicago(), new NewYork(), new LosAngeles());
         Player player = new Player(cities);
         Controller controller = new Controller(player);
         Shell shell = new Shell(controller);

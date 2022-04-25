@@ -13,6 +13,8 @@ public class Shell {
 
     public static final String NO_VALID_INT = "No valid integer";
 
+    private static final String DEVIDER = "+-------------------------------------------------------------------+%n";
+
     private final Controller controller;
 
     public Shell(Controller controller) {
@@ -24,15 +26,15 @@ public class Shell {
         Player player = controller.getPlayer();
         List<Candy> candies = player.getCurrentLocation().getCandies();
 
-        System.out.format("+------------------------------------------------------------------+%n");
-        System.out.format("|                             CANDY LORD                           |%n");
-        System.out.format("+------------------------------------------------------------------+%n");
-        System.out.printf("| Day: %-8s                                       max Days: 30 |%n", controller.getPlayer().getDayCounter());
-        System.out.format("+------------------------------------------------------------------+%n");
-        System.out.printf("| location: %-8s           max amount: %d           cash:$%-3.0f |%n", player.getCurrentLocation().getLocationName(), Player.MAX_CANDY_AMOUNT, (double) player.getCash());
-        System.out.format("+------------------------------------------------------------------+%n");
-        System.out.format("|       Candies        |  on hand | street prices |  travel cost   |%n");
-        System.out.format("+----------------------+----------+---------------+----------------+%n");
+        System.out.format(DEVIDER);
+        System.out.format("|                             CANDY LORD                            |%n");
+        System.out.format(DEVIDER);
+        System.out.printf("| Day: %-8s                                       max Days: 30  |%n", controller.getPlayer().getDayCounter());
+        System.out.format(DEVIDER);
+        System.out.printf("| location: %-8s           max amount: %d           cash:$%-3.0f  |%n", player.getCurrentLocation().getLocationName(), Player.MAX_CANDY_AMOUNT, (double) player.getCash());
+        System.out.format(DEVIDER);
+        System.out.format("|       Candies        |  on hand | street prices |  travel cost    |%n");
+        System.out.format("+----------------------+----------+---------------+-----------------+%n");
 
         for (int i = candies.size() - 1, j = 0; i >= 0; i--, j++) {
             Candy candy = candies.get(i);
@@ -49,11 +51,18 @@ public class Shell {
             for (Candy candy1 : player.getCandyOnHand().keySet()) {
                 if (candy1.getName().equals(candy.getName())) candy = candy1;
             }
-            System.out.printf("| %-20s | %8d | $%-12.0f | %-10s%-4s |%n",
+            System.out.printf("| %-20s | %8d | $%-12.0f | %-10s%-5s |%n",
                     candy.getName(), player.getCandyOnHand().get(candy),
                     (double) candyForPrice.getPrice(), cityName, travelCosts);
         }
-        System.out.format("+------------------------------------------------------------------+%n");
+        System.out.format(DEVIDER);
+        if(!controller.getEventMessage().equals("")) {
+            System.out.println(controller.getEventMessage());
+            controller.setEventMessage("");
+            System.out.format(DEVIDER);
+
+        }
+
         System.out.println();
     }
 
@@ -89,10 +98,6 @@ public class Shell {
                 case 1,2,3,4,5,6 -> {
                     if(controller.tryToTravel(locations.get(citySelection-1)))
                         controller.triggerRandomEvent(new Random().nextInt(1, 10));
-                    if(!controller.getEventMessage().equals("")) {
-                        System.out.println(controller.getEventMessage());
-                        controller.setEventMessage("");
-                    }
                 }
                 default -> System.out.println("This city doesn't exist");
             }

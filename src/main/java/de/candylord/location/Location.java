@@ -2,6 +2,7 @@ package de.candylord.location;
 
 import de.candylord.candy.Candy;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -9,6 +10,11 @@ import java.util.Random;
  * Represents a location
  */
 public abstract class Location {
+
+    /**
+     * Contains a travelRate
+     */
+    public static final int travelRate = 50;
 
     /**
      * Contains the name of the location
@@ -22,11 +28,18 @@ public abstract class Location {
 
     protected Random rand = new Random();
 
+    /**
+     * contains the travelCosts
+     */
     private int travelCosts;
 
-    public Location(String locationName, int travelCosts) {
+    /**
+     * contains the coordinates for this location
+     */
+    protected Point coordinates;
+
+    public Location(String locationName) {
         this.locationName = locationName;
-        this.travelCosts = travelCosts;
     }
 
     /**
@@ -57,9 +70,17 @@ public abstract class Location {
         return travelCosts;
     }
 
+    public void setTravelCosts(int travelCosts) {
+        this.travelCosts = travelCosts;
+    }
+
     protected abstract List<Candy> createCandies();
 
     public abstract void createNewPrices();
+
+    public Point getCoordinates() {
+        return coordinates;
+    }
 
     @Override
     public String toString() {

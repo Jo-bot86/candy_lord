@@ -4,6 +4,7 @@ import de.candylord.candy.Candy;
 import de.candylord.candy.CandyName;
 import de.candylord.location.Location;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -41,8 +42,9 @@ public class Chicago extends Location {
 
 
     public Chicago() {
-        super("Chicago", TRAVEL_COST);
+        super("Chicago");
         super.setCandies(createCandies());
+        super.coordinates = new Point(-3,1);
     }
 
     protected List<Candy> createCandies() {

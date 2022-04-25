@@ -34,8 +34,14 @@ public class Player {
      */
     private Location currentLocation;
 
+    /**
+     * contains the day counter
+     */
     private int dayCounter = 1;
 
+    /**
+     * contains a list of all locations
+     */
     private final List<Location> locations;
 
     /**
@@ -43,6 +49,9 @@ public class Player {
      */
     private int cashOnHand;
 
+    /**
+     * contains the amount of candies a player holds
+     */
     private int currentAmountOfCandies;
 
     /**
@@ -55,16 +64,41 @@ public class Player {
         cashOnHand = START_CASH;
         initRandomLocation();
         initCandyOnHand();
+        createTravelCosts();
     }
 
+    /**
+     * create the travel costs from currentLocation to all locations depending on the coordinates
+     */
+    public void createTravelCosts(){
+        for (Location location : locations) {
+            location.setTravelCosts((int) currentLocation.getCoordinates().distance(location.getCoordinates()) * Location.travelRate);
+        }
+    }
+
+    /**
+     * Process the mug method from the Muggable Interface
+     * @param robber Muggable object that process the mug method
+     */
     public void getMugged(Muggable robber){
         robber.mug();
     }
 
+    /**
+     * Process the give() method from the Giftable Interface
+     * @param patron Giftable object that process the give method
+     */
     public void getGifted(Giftable patron){
         patron.give();
     }
 
+    /**
+     * Sells a candy of the specified amount
+     * @param candyToSell the candy to sell
+     * @param amount the amount of candies to sell
+     * @throws Exception throws an IllegalArgumentException if the amount of candies a player
+     * want to sell is higher than the amount of candies the player holds in hand
+     */
     public void sellCandy(Candy candyToSell, int amount) throws Exception{
         candyOnHand.keySet().forEach(candy -> {
             if(candy.getName().equals(candyToSell.getName())){
@@ -81,6 +115,12 @@ public class Player {
         });
     }
 
+    /**
+     *
+     * @param wantedCandy
+     * @param amount
+     * @throws Exception
+     */
     public void buyCandy(Candy wantedCandy, int amount) throws Exception{
         if(amount > MAX_CANDY_AMOUNT || MAX_CANDY_AMOUNT-currentAmountOfCandies < amount){
             throw new IllegalArgumentException("you can't hold that much candies");
@@ -104,25 +144,14 @@ public class Player {
         int travelCosts = 0;
         for (Location city : locations) {
             if(city.equals(location) && !location.equals(currentLocation)){
-                switch (city.getClass().getSimpleName()) {
-                    case "Detroit" -> {
-                        enoughCash = checkForEnoughCash(Detroit.TRAVEL_COST);
-                        travelCosts = Detroit.TRAVEL_COST;
-                    }
-                    case "Chicago" -> {
-                        enoughCash = checkForEnoughCash(Chicago.TRAVEL_COST);
-                        travelCosts = Chicago.TRAVEL_COST;
-                    }
-                    case "NewYork" -> {
-                        enoughCash = checkForEnoughCash(NewYork.TRAVEL_COST);
-                        travelCosts = NewYork.TRAVEL_COST;
-                    }
-                }
+                enoughCash = checkForEnoughCash(city.getTravelCosts());
+                travelCosts = city.getTravelCosts();
                 if(enoughCash){
                     currentLocation = city;
                     cashOnHand -= travelCosts;
                     location.createNewPrices();
                     dayCounter++;
+                    createTravelCosts();
                     break;
                 }else{
                     throw new IllegalArgumentException("Not enough money bro");

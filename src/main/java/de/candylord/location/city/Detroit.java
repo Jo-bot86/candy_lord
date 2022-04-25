@@ -4,6 +4,7 @@ import de.candylord.candy.Candy;
 import de.candylord.candy.CandyName;
 import de.candylord.location.Location;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -42,8 +43,10 @@ public class Detroit extends Location {
 
 
     public Detroit() {
-        super("Detroit", TRAVEL_COST);
+        super("Detroit");
         super.setCandies(createCandies());
+        super.coordinates = new Point(-1,1);
+
     }
 
     @Override
@@ -74,4 +77,6 @@ public class Detroit extends Location {
             case GINGER_BREAD -> rand.nextInt(MIN_PRICE_GINGER_BREAD, MAX_PRICE_GINGER_BREAD);
         };
     }
+
+
 }
