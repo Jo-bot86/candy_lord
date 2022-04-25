@@ -7,7 +7,7 @@ import de.candylord.location.Location;
 import java.awt.*;
 import java.util.List;
 
-public class Detroit extends Location {
+public class Phoenix extends Location {
 
     public static final int MIN_PRICE_CHEW_GUM = 4;
 
@@ -37,17 +37,15 @@ public class Detroit extends Location {
 
     public static final int MAX_PRICE_GINGER_BREAD = 1078;
 
-
-
-    public Detroit() {
-        super("Detroit");
+    public Phoenix() {
+        super("Phoenix");
         super.setCandies(createCandies());
-        super.coordinates = new Point(-1,1);
+        super.coordinates = new Point(-18,-2);
 
     }
 
     @Override
-    protected List<Candy> createCandies() {
+    protected java.util.List<Candy> createCandies() {
         return List.of(
                 new Candy(CandyName.CHEW_GUM, rand.nextInt(MIN_PRICE_CHEW_GUM, MAX_PRICE_CHEW_GUM)),
                 new Candy(CandyName.LOLLIPOP, rand.nextInt(MIN_PRICE_LOLLIPOP, MAX_PRICE_LOLLIPOP)),
@@ -74,6 +72,4 @@ public class Detroit extends Location {
             case GINGER_BREAD -> rand.nextInt(MIN_PRICE_GINGER_BREAD, MAX_PRICE_GINGER_BREAD);
         };
     }
-
-
 }
